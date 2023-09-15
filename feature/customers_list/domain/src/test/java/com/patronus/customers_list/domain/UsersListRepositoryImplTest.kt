@@ -25,7 +25,7 @@ class CustomersListRepositoryImplTest {
     }
 
     @Test
-    fun `verify user list call`() = runBlocking {
+    fun `verify customer list call`() = runBlocking {
         coEvery {
             apiService.fetchCustomersList()
         } returns mockk<CustomersObject>(relaxed = true).copy(customers = listOf(mockk(relaxed = true)))

@@ -15,8 +15,8 @@ class CustomersListUseCaseImpl(
     override suspend fun invoke(): CustomersListUseCaseResult {
         return withContext(coroutineContext) {
             try {
-                val users = customersListRepository.fetchCustomers()
-                CustomersListUseCaseResult.Success(users)
+                val customers = customersListRepository.fetchCustomers()
+                CustomersListUseCaseResult.Success(customers)
             } catch (e: Exception) {
                 CustomersListUseCaseResult.Error(e.cause)
             }

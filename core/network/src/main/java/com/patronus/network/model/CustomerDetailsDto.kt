@@ -13,13 +13,14 @@ data class CustomerDetailsDto(
     @SerializedName("gender") val gender : String,
     @SerializedName("phoneNumber") val phoneNumber : String,
     @SerializedName("address") val address : Address
-)
+){
+    data class Address (
 
-data class Address (
+        @SerializedName("street") val street : String,
+        @SerializedName("city") val city : String,
+        @SerializedName("state") val state : String,
+        @SerializedName("zip") val zip : Int,
+        @SerializedName("country") val country : String
+    )
+}
 
-    @SerializedName("street") val street : String,
-    @SerializedName("city") val city : String,
-    @SerializedName("state") val state : String,
-    @SerializedName("zip") val zip : Int,
-    @SerializedName("country") val country : String
-)

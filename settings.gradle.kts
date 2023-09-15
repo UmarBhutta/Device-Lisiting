@@ -24,4 +24,6 @@ include(":feature:customers_list:api")
 include(":feature:customers_list:domain")
 include(":feature:customers_list:presentation")
 
- 
+include(":feature:customer_details")
+include(":feature:customer_details:api")
+include(":feature:customer_details:domain")
