@@ -8,6 +8,11 @@ data class CustomerDto(
     @SerializedName("lastName") val lastName : String,
     @SerializedName("gender") val gender : String,
     @SerializedName("phoneNumber") val phoneNumber : String,
-    @SerializedName("imageUrl") val imageUrl : String,
+    @SerializedName("imageUrl") val imageUrl : String?,
     @SerializedName("stickers") val stickers : List<String>
+)
+
+
+data class CustomersObject(
+    @SerializedName("customers") val customers : List<CustomerDto>
 )

@@ -18,5 +18,10 @@ include(":app")
 include(":common")
 include(":core")
 include(":core:network")
+include(":feature")
+include(":feature:customers_list")
+include(":feature:customers_list:api")
+include(":feature:customers_list:domain")
+include(":feature:customers_list:presentation")
 
  
