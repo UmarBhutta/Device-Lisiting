@@ -19,6 +19,8 @@ coroutines-test = "1.6.4"
 turbine = "0.11.0"
 mockk = "1.12.0"
 coil = "2.4.0"
+google-maps = "2.14.0"
+google-play-services = "18.1.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -40,6 +42,8 @@ coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+google-maps = { group = "com.google.maps.android", name = "maps-compose", version.ref = "google-maps" }
+google-play-services = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "google-play-services" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

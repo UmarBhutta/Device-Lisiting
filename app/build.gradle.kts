@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -23,6 +25,9 @@ android {
                 force("androidx.emoji2:emoji2:1.3.0")
             }
         }
+        val projectProperties = readProperties(file("../local.properties"))
+
+        manifestPlaceholders["googleMapsApiKey"] = projectProperties["MAPS_API_KEY"] as String
     }
 
     buildTypes {
@@ -40,6 +45,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+
+fun readProperties(propertiesFile: File) = Properties().apply {
+    propertiesFile.inputStream().use { fis ->
+        load(fis)
     }
 }
 

@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.koin)
     implementation(libs.androidx.material3)
     implementation(libs.coil)
+    implementation(libs.google.maps)
+    implementation(libs.google.play.services)
 
     implementation(project(":common"))
     implementation(project(":feature:customer_details:api"))
