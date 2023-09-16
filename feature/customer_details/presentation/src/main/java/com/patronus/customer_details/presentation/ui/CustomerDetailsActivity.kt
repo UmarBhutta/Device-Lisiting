@@ -12,14 +12,15 @@ import org.koin.core.parameter.parametersOf
 
 class CustomerDetailsActivity : ComponentActivity() {
 
-    private val args = intent.getParcelableExtra(ARG_KEY, CustomerDetailsArgs::class.java)
+    private lateinit var args: CustomerDetailsArgs
 
     private val customerDetailsViewModel by inject<CustomerDetailsViewModel> {
-        parametersOf(args?.customerId)
+        parametersOf(args.customerId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        args = intent.getParcelableExtra(ARG_KEY)!!
         setContent {
             AppTheme {
                 CustomerDetailsScreen(customerDetailsViewModel) {
