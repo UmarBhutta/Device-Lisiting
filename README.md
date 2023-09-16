@@ -1,6 +1,6 @@
 # Device Listing
 
-Listing is single-page application showcasing the users.
+Device Listing is application showcasing the device listing and customer details.
 
 The main goal of this app is to be a sample of how to build an high quality Android application that uses the mutlimodule Architecture components,MVVM,Coroutines,Jetpack,Koin etc. in Kotlin.
 
