@@ -54,7 +54,7 @@ class CustomerDetailsViewModelTest {
         val viewModel = CustomerDetailsViewModel(customerId,getCustomerDetailsUseCase)
 
         viewModel.customerDetails.test {
-            assertEquals(CustomerDetailsState(), awaitItem())
+            assertEquals(CustomerDetailsState(customer = customer.toCustomerDetailUiModel()), awaitItem())
             cancelAndConsumeRemainingEvents()
         }
     }
