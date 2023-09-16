@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import com.patronus.common.AppTheme
-import com.patronus.customers_list.presentation.ui.composable.CustomerListScreen
+import com.patronus.customers_list.presentation.ui.component.CustomerListScreen
 import org.koin.android.ext.android.inject
 
 class CustomersListActivity : AppCompatActivity() {

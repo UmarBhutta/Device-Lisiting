@@ -48,8 +48,6 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.koin)
     implementation(libs.androidx.material3)
-//    implementation(libs.androidx.ui.tooling.preview.android)
-    implementation(libs.coil)
 
     implementation(project(":common"))
     implementation(project(":feature:customers_list:api"))

@@ -1,4 +1,4 @@
-package com.patronus.customers_list.presentation.ui.composable
+package com.patronus.customers_list.presentation.ui.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

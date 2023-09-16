@@ -5,10 +5,7 @@
         <activity
             android:name="com.patronus.customers_list.presentation.ui.CustomersListActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 
