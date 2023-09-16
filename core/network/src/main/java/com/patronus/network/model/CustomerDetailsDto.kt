@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CustomerDetailsDto(
     @SerializedName("id") val id : Int,
-    @SerializedName("imageUrl") val imageUrl : String,
+    @SerializedName("imageUrl") val imageUrl : String?,
     @SerializedName("currentLatitude") val currentLatitude : Double,
     @SerializedName("currentLongitude") val currentLongitude : Double,
     @SerializedName("firstName") val firstName : String,

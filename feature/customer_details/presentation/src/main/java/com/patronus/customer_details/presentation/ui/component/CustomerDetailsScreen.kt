@@ -26,6 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,13 +38,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.patronus.common.components.Avatar
 import com.patronus.common.components.Stickers
+import com.patronus.customer_details.presentation.ui.CustomerDetailsViewModel
+import com.patronus.customer_details.presentation.ui.data.CustomerDetailUiModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomerDetailsScreen() {
+fun CustomerDetailsScreen(
+    customerDetailsViewModel: CustomerDetailsViewModel,
+    onBackPressed: () -> Unit
+) {
 
-    val isLoading = false
-    val isError = false
+    val customersDetailsState by customerDetailsViewModel.customerDetails.collectAsState()
+    val isLoading by rememberUpdatedState(newValue = customersDetailsState.isLoading)
+    val isError by rememberUpdatedState(newValue = customersDetailsState.isError)
+    val errorMessage by rememberUpdatedState(newValue = customersDetailsState.errorMessage)
 
     Scaffold(
         topBar = {
@@ -49,7 +59,7 @@ fun CustomerDetailsScreen() {
                      title = {},
                      navigationIcon = {
                      IconButton(
-                         onClick = { /*TODO*/ }
+                         onClick = { onBackPressed() }
                      ) {
                          Box(
                              modifier = Modifier
@@ -93,18 +103,20 @@ fun CustomerDetailsScreen() {
                                 action = {
                                     TextButton(
                                         onClick = {
-
+                                            customerDetailsViewModel.retry()
                                         }
                                     ) {
                                         Text(text = "Retry")
                                     }
                                 }
                             ) {
-                                Text(text = "An error occurred")
+                                Text(text = errorMessage ?: "An error occurred")
                             }
                         }
                     } else {
-                            ScreenContent(modifier = Modifier.padding(vertical = 8.dp))
+                            customersDetailsState.customer?.let {
+                                ScreenContent(modifier = Modifier.padding(vertical = 8.dp), it)
+                            }
                     }
                 }
             }
@@ -113,38 +125,41 @@ fun CustomerDetailsScreen() {
 }
 
 @Composable
-fun ScreenContent(modifier: Modifier = Modifier) {
+fun ScreenContent(modifier: Modifier = Modifier, customer: CustomerDetailUiModel) {
     Column(
         modifier = modifier
     ) {
-        MapViewContainer()
-        InfoContent()
+        MapViewContainer(currentLatitude = customer.currentLatitude, currentLongitude = customer.currentLongitude)
+        InfoContent(customer = customer)
     }
 }
 
 @Composable
-fun InfoContent(modifier: Modifier = Modifier) {
+fun InfoContent(modifier: Modifier = Modifier, customer: CustomerDetailUiModel) {
     Column(
         modifier = modifier
             .padding(horizontal = 24.dp)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.Start
         ) {
-        Avatar(initials = "AB", imageUrl = "https://fastly.picsum.photos/id/473/200/300.jpg?hmac=WYG6etF60iOJeGoFVY1hVDMakbBRS32ZDGNkVZhF6-8")
-        CustomerInfo(modifier = Modifier.padding(top = 24.dp))
-        CustomerAddress(modifier = Modifier.padding(top = 24.dp))
+        Avatar(initials = customer.initials, imageUrl = customer.photoUrl)
+        CustomerInfo(modifier = Modifier.padding(top = 24.dp), customer)
+        CustomerAddress(modifier = Modifier.padding(top = 24.dp), customer.address)
     }
 }
 
 @Composable
-fun CustomerInfo(modifier: Modifier = Modifier) {
+fun CustomerInfo(
+    modifier: Modifier = Modifier,
+    customer: CustomerDetailUiModel
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start,
     ) {
         Text(
-            text = "Savannah Nguyen",
+            text = customer.name,
             style = TextStyle(
                 fontSize = 27.sp,
                 lineHeight = 32.4.sp,
@@ -153,14 +168,14 @@ fun CustomerInfo(modifier: Modifier = Modifier) {
             )
         )
 
-        Stickers(listOf("FAM","BAN"))
+        Stickers(customer.stickers)
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
             verticalAlignment = Alignment.Top,
         ) {
             Text(
-                text = "Female",
+                text = customer.gender,
                 style = TextStyle(
                     fontSize = 17.sp,
                     lineHeight = 20.4.sp,
@@ -176,7 +191,7 @@ fun CustomerInfo(modifier: Modifier = Modifier) {
                     .background(color = Color(0xFFCED4DA))
             )
             Text(
-                text = "+49 1760 46211581",
+                text = customer.phoneNumber,
                 style = TextStyle(
                     fontSize = 17.sp,
                     lineHeight = 20.4.sp,
@@ -190,7 +205,7 @@ fun CustomerInfo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CustomerAddress(modifier: Modifier = Modifier) {
+fun CustomerAddress(modifier: Modifier = Modifier, currentAddress: String) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
@@ -206,7 +221,7 @@ fun CustomerAddress(modifier: Modifier = Modifier) {
             )
         )
         Text(
-            text = "Catrin-Hoffmann-Ring 1, 38952\nBadoberan",
+            text = currentAddress,
             style = TextStyle(
                 fontSize = 17.sp,
                 lineHeight = 20.4.sp,
@@ -218,7 +233,11 @@ fun CustomerAddress(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MapViewContainer(modifier: Modifier = Modifier) {
+fun MapViewContainer(
+    modifier: Modifier = Modifier,
+    currentLatitude : Double,
+    currentLongitude : Double,
+) {
     Box(modifier = modifier
         .fillMaxWidth()
         .height(292.dp)

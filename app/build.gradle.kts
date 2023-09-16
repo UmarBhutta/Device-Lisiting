@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":feature:customers_list:domain"))
     implementation(project(":feature:customers_list:presentation"))
+    implementation(project(":feature:customer_details:domain"))
     implementation(project(":feature:customer_details:presentation"))
 
     testImplementation(libs.junit)

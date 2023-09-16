@@ -6,7 +6,7 @@ import com.patronus.network.model.CustomerDetailsDto
 fun CustomerDetailsDto.toCustomerDetails(): CustomerDetails {
     return CustomerDetails(
         id = this.id,
-        imageUrl = this.imageUrl,
+        imageUrl = this.imageUrl ?: "",
         currentLatitude = this.currentLatitude,
         currentLongitude = this.currentLongitude,
         firstName = this.firstName,

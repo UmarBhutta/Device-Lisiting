@@ -51,8 +51,13 @@ dependencies {
     implementation(libs.coil)
 
     implementation(project(":common"))
+    implementation(project(":feature:customer_details:api"))
 
     testImplementation(libs.junit)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.mockk)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
